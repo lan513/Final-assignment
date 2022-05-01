@@ -48,7 +48,7 @@ ui <- fluidPage(
         tabPanel(title = 'Overiview', 
                  p('This analysis website illustrates the attitude towards if chirlden suffer from working mother and if employers should given jobs to  national citizen when jobs are scare in different countries.'), br(),
                  p('There are four selections you can choose on the left side, including country, outcome (the attitude you want to check), education, gender and age of respondents. On the right side, there are two graphs visulizing the output of the selected question. "Exploration" indicates that the attitude of people in age groups of around 20-40, 41-60, 61-80, and 80+.The more people share one type of attitude, the darker the dot shows. The blue line is the fittered curve. "Regression" indicates how well the fittered curve fits the actual data. The flatter and closer to 0, the better regression capturing actual data. In addition, education, gender and age are only connected to "Regression". In this way, we could understand the actual attitude of two in different countries. Moreover, we could see the accuracy of the simulated prediction.'), br(),
-                 p('Please explore your interests!') ),
+                 p('If you want more infornation, please find in "Generate Report". Hope you will explore your interests in the web:https://lan513assignment4.shinyapps.io/FinalAssignment/') ),
         tabPanel(title = 'Exploration', plotOutput('figb1')),
         tabPanel(title = 'Regression', plotOutput('figc1'), dataTableOutput('dfc1'))
       )
@@ -78,12 +78,12 @@ server <- function(input, output){
       theme_bw()
   })
   
-  # the out for section 2
+ # the out for section 2
   output$figb1 <- renderPlot({
     p_temp()
   })
   
-  # model
+ # model
   mod_temp <- reactive({
     mf <- paste(input$Outcome, paste(c(paste0('poly(Age, ', input$poly, ')'), input$Controls), collapse = '+'), sep = '~')
     mod <- lm(as.formula(mf), data = df_temp())
@@ -126,6 +126,8 @@ server <- function(input, output){
 
 shinyApp(ui, server)
 
+
+# https://lan513assignment4.shinyapps.io/FinalAssignment/
 
 
 
