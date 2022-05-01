@@ -1,0 +1,43 @@
+---
+params:
+  country: NA
+  outcome: NA
+  p: NA
+  mod: NA
+title: "Dynamic report"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+In this project, I use data from the European Values Study, a large-scale, cross-country and longitudinal survey research program on how Europeans view family, work, religion, politics and society. 
+
+In this project, we are interested in the attitude of `r ifelse(params$outcome == 'v72','child suffers with working mother (Q25A)', 'jobs are scarce at different ages: giving...(nation) priority (Q26A)' )`  for different ages. The following figure shows the relationship between these two variables in `r params$country`.
+
+
+```{r, warning=FALSE, message=FALSE, fig.height=5, fig.width=8, echo=FALSE}
+print(params$p)
+```
+
+
+The linear regression model is as follows. In this linear regression model, the corresponding variable is the attitude of `r ifelse(params$outcome == 'v72','child suffers with working mother (Q25A)', 'jobs are scarce: giving...(nation) priority (Q26A)')`.
+
+
+```{r, warning=FALSE, message=FALSE, echo=FALSE}
+summary(params$mod)
+```
+
+
+
+The residual diagnostic plot is as follows. We can use the residual diagnostic plot to see if the model fit is adequate.
+
+
+```{r, warning=FALSE, message=FALSE, echo=FALSE, fig.cap='Residual Diagnostic Plot'}
+par(mfrow = c(2, 2))
+plot(params$mod, pch = 16, col = rgb(70, 130, 180, 80, maxColorValue = 255))
+```
+
+
